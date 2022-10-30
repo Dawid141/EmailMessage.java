@@ -23,7 +23,7 @@ public class EmailRecipient extends Recipient {
         il++;
     }
 
-    if(il > 1){
+    if(il > 1 || il ==0){
       throw new Exception("RecipientAddress is wrong");
     }
   }

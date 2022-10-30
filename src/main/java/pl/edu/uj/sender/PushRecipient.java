@@ -1,6 +1,8 @@
 package pl.edu.uj.sender;
 
-public abstract class PushRecipient extends Recipient {
+import java.util.regex.Pattern;
+
+public class PushRecipient extends Recipient {
   private final String recipientAddress;
 
   public PushRecipient(String recipientAddress) {
@@ -12,10 +14,12 @@ public abstract class PushRecipient extends Recipient {
     return recipientAddress;
   }
 
-  // TODO zaimplementuj validateRecipient() - sprawdzenie poprawności adresu push.
-  //  Sprawdzanie recipientAddress: możesz użyć wyrażenia regularnego:
-  //  Pattern p = Pattern.compile("^[a-zA-Z0-9]*$");
-  //  W przypadku błędu, rzuć wyjątkiem.
+  void validateRecipient() throws SenderException {
+    Pattern p = Pattern.compile("^[a-zA-Z0-9]*$");
+    if( !Pattern.matches(String.valueOf(p), recipientAddress))
+      throw new SenderException();
+
+  }
 
 
   @Override

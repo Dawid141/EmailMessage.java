@@ -3,13 +3,12 @@ package pl.edu.uj.sender;
 public class PushSender implements Sender {
 
   @Override
-  public void send(Message message, Recipient recipient) throws SenderException {
-    // TODO sprawdź czy message jest klasy PushMessage
-    //  oraz recipient klasy PushRecipient
-    //  Jeśli nie, throw new SenderException(...)
+  public void send(Message message, Recipient recipient) throws Exception {
+    if(!(message instanceof PushMessage)) throw new SenderException("Data is not same class");
+    if(!(recipient instanceof PushRecipient)) throw new SenderException("Data is not same class");
 
-    // TODO wywyołaj walidację wiadomości
-    // TODO wywolaj walidację odbiorcy
+    message.validateMessage();
+    recipient.validateRecipient();
 
     String bodyMD5 = message.anonymizeMessageBody();
     String anonymizedRecipientAddress = recipient.anonymize();

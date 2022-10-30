@@ -13,18 +13,15 @@ public class EmailSender implements Sender {
   public void send(Message message, Recipient recipient)
           throws Exception {
 
-      if(!(message instanceof EmailMessage)) throw new SenderException();
-      if(!(recipient instanceof EmailRecipient)) throw new SenderException();
+      if(!(message instanceof EmailMessage)) throw new SenderException("Data is not same class");
+      if(!(recipient instanceof EmailRecipient)) throw new SenderException("Data is not same class");
 
-
-
-    // TODO wywolaj walidację odbiorcy
+      message.validateMessage();
+      recipient.validateRecipient();
 
     String bodyMD5 = message.anonymizeMessageBody();
     String anonymizedRecipientAddress = recipient.anonymize();
 
-    // TODO Dodaj wyjątek do sygnatury funkcji (Intelij sam podpowiada)
-    //  Co trzeba zmienić w interfejsie?
     sleep(5000); // sending
 
     /* Use System.out to graphically distinguish sending from logging */
